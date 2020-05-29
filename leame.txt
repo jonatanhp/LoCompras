@@ -1,0 +1,11 @@
+Paso 1. Copiar ClientesPanel.java y pegar en la misma carpeta, 
+Paso 2. Cambiar el nombre de la clase a ClientesPanel1
+Paso 3. Mover a otra carpeta
+Paso 4. Hacer Refactor, Rename con el nuevo nombre
+
+H:\De CDs\CD03 CrusosAl2010\2 Cursos\20091-LP1
+Manuales y link de EA
+https://www.youtube.com/watch?v=zPHK-TC_H-U&list=PLmV4qZbUQxxq4nBYdtLfMoAwuuSPBB2fX
+
+
+
