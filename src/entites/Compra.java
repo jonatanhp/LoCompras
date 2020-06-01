@@ -19,9 +19,15 @@ public class Compra {
     private String prove_nom;
     private double cant_gr;
     private int esdolares;
-    private double tipo_cambio;
+
+    private double onza;
+    private double porc;
+    private double ley;
+    private double sistema;
+    private double tcambio;
     private double precio_do;
     private double precio_so;
+    
     private double total_do;
     private double total_so;
     private double saldo_do_porpagar;
@@ -79,12 +85,44 @@ public class Compra {
         this.esdolares = esdolares;
     }
 
-    public double getTipo_cambio() {
-        return tipo_cambio;
+    public double getOnza() {
+        return onza;
     }
 
-    public void setTipo_cambio(double tipo_cambio) {
-        this.tipo_cambio = tipo_cambio;
+    public void setOnza(double onza) {
+        this.onza = onza;
+    }
+
+    public double getPorc() {
+        return porc;
+    }
+
+    public void setPorc(double porc) {
+        this.porc = porc;
+    }
+
+    public double getLey() {
+        return ley;
+    }
+
+    public void setLey(double ley) {
+        this.ley = ley;
+    }
+
+    public double getSistema() {
+        return sistema;
+    }
+
+    public void setSistema(double sistema) {
+        this.sistema = sistema;
+    }
+
+    public double getTcambio() {
+        return tcambio;
+    }
+
+    public void setTcambio(double tcambio) {
+        this.tcambio = tcambio;
     }
 
     public double getPrecio_do() {
@@ -166,6 +204,8 @@ public class Compra {
     public void setLast_updated(Date last_updated) {
         this.last_updated = last_updated;
     }
+
+    
 
    
 }

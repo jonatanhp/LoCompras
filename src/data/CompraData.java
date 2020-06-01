@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.sqlite.SQLiteConfig;
 
 /**
  *
@@ -27,7 +28,8 @@ public class CompraData {
     static Connection cn = Conn.connectSQLite();
     static PreparedStatement ps;
     static Date dt = new Date();
-    static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    static SimpleDateFormat sdf = new SimpleDateFormat(SQLiteConfig.DEFAULT_DATE_STRING_FORMAT);
+
     String currentTime = sdf.format(dt);
 
     public static Compra getById(int id) {
@@ -39,22 +41,35 @@ public class CompraData {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 d.setId(rs.getInt("id"));
-                d.setFecha(rs.getDate("fecha"));
+                String fecha = rs.getString("fecha");
+                System.out.println("getById.fecha:" + fecha);
+                try {
+                    Date date = sdf.parse(fecha);
+                    System.out.println("getById.date:" + date);
+                    d.setFecha(date);
+                    d.setDate_created(sdf.parse(rs.getString("date_created")));
+                    d.setLast_updated(sdf.parse(rs.getString("last_updated")));
+                } catch (Exception e) {
+                }
                 d.setProve_id(rs.getInt("prove_id"));
                 d.setProve_nom(rs.getString("prove_nom"));
                 d.setCant_gr(rs.getDouble("cant_gr"));
                 d.setEsdolares(rs.getInt("esdolares"));
-                d.setTipo_cambio(rs.getDouble("tipo_cambio"));
+
+                d.setOnza(rs.getDouble("onza"));
+                d.setPorc(rs.getDouble("porc"));
+                d.setLey(rs.getDouble("ley"));
+                d.setSistema(rs.getDouble("sistema"));
+                d.setTcambio(rs.getDouble("tcambio"));
                 d.setPrecio_do(rs.getDouble("precio_do"));
                 d.setPrecio_so(rs.getDouble("precio_so"));
+
                 d.setTotal_do(rs.getDouble("total_do"));
                 d.setTotal_so(rs.getDouble("total_so"));
                 d.setSaldo_do_porpagar(rs.getDouble("saldo_do_porpagar"));
                 d.setSaldo_so_porpagar(rs.getDouble("saldo_so_porpagar"));
                 d.setUser(rs.getInt("user"));
                 d.setActivo(rs.getInt("activo"));
-                d.setDate_created(rs.getDate("date_created"));
-                d.setLast_updated(rs.getDate("last_updated"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CompraData.class.getName()).log(Level.SEVERE, null, ex);
@@ -64,11 +79,13 @@ public class CompraData {
 
     public static int registrar(Compra d) {
         int rsu = 0;
+
         String sql = "INSERT INTO compra(fecha,  prove_id, prove_nom, cant_gr, esdolares, "
-                +"tipo_cambio, precio_do, precio_so, total_do, total_so, "
-                + "saldo_do_porpagar, saldo_so_porpagar, user, activo "
+                + "onza, porc, ley, sistema, tcambio, "
+                + "precio_do, precio_so, total_do, total_so, saldo_do_porpagar, "
+                + "saldo_so_porpagar, user "
                 + ") "
-                + "VALUES(?,?,?,?,?  ,?,?,?,?,?  ,?,?,?,?)";
+                + "VALUES(?,?,?,?,?  ,?,?,?,?,?   ,?,?,?,?,?  ,?,?)";
         int i = 0;
         try {
             String fecha = sdf.format(d.getFecha());
@@ -78,15 +95,20 @@ public class CompraData {
             ps.setString(++i, d.getProve_nom());
             ps.setDouble(++i, d.getCant_gr());
             ps.setInt(++i, d.getEsdolares());
-            ps.setDouble(++i, d.getTipo_cambio());
+
+            ps.setDouble(++i, d.getOnza());
+            ps.setDouble(++i, d.getPorc());
+            ps.setDouble(++i, d.getLey());
+            ps.setDouble(++i, d.getSistema());
+            ps.setDouble(++i, d.getTcambio());
             ps.setDouble(++i, d.getPrecio_do());
             ps.setDouble(++i, d.getPrecio_so());
+
             ps.setDouble(++i, d.getTotal_do());
             ps.setDouble(++i, d.getTotal_so());
             ps.setDouble(++i, d.getSaldo_do_porpagar());
             ps.setDouble(++i, d.getSaldo_so_porpagar());
             ps.setInt(++i, d.getUser());
-            ps.setInt(++i, 1);
             rsu = ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CompraData.class.getName()).log(Level.SEVERE, null, ex);
@@ -102,7 +124,11 @@ public class CompraData {
                 + "prove_nom=?, "
                 + "cant_gr=?, "
                 + "esdolares=?, "
-                + "tipo_cambio=?, "
+                + "onza=?, "
+                + "porc=?, "
+                + "ley=?, "
+                + "sistema=?, "
+                + "tcambio=?, "
                 + "precio_do=?, "
                 + "precio_so=?, "
                 + "total_do=?, "
@@ -122,16 +148,22 @@ public class CompraData {
             ps.setString(++i, d.getProve_nom());
             ps.setDouble(++i, d.getCant_gr());
             ps.setInt(++i, d.getEsdolares());
-            ps.setDouble(++i, d.getTipo_cambio());
+
+            ps.setDouble(++i, d.getOnza());
+            ps.setDouble(++i, d.getPorc());
+            ps.setDouble(++i, d.getLey());
+            ps.setDouble(++i, d.getSistema());
+            ps.setDouble(++i, d.getTcambio());
             ps.setDouble(++i, d.getPrecio_do());
             ps.setDouble(++i, d.getPrecio_so());
+
             ps.setDouble(++i, d.getTotal_do());
             ps.setDouble(++i, d.getTotal_so());
             ps.setDouble(++i, d.getSaldo_do_porpagar());
             ps.setDouble(++i, d.getSaldo_so_porpagar());
             ps.setInt(++i, d.getUser());
             ps.setInt(++i, d.getActivo());
-            ps.setString(++i, sdf.format(dt) );
+            ps.setString(++i, sdf.format(dt));
             ps.setInt(++i, d.getId());
             rsu = ps.executeUpdate();
         } catch (SQLException ex) {
@@ -170,22 +202,36 @@ public class CompraData {
             while (rs.next()) {
                 Compra d = new Compra();
                 d.setId(rs.getInt("id"));
-                d.setFecha(rs.getDate("fecha"));
+                //d.setFecha(rs.getDate("fecha"));
+                String fecha = rs.getString("fecha");
+                System.out.println("list.fecha:" + fecha);
+                try {
+                    Date date = sdf.parse(fecha);
+                    System.out.println("list.date:" + date);
+                    d.setFecha(date);
+                    d.setDate_created(sdf.parse(rs.getString("date_created")));
+                    d.setLast_updated(sdf.parse(rs.getString("last_updated")));
+                } catch (Exception e) {
+                }
                 d.setProve_id(rs.getInt("prove_id"));
                 d.setProve_nom(rs.getString("prove_nom"));
                 d.setCant_gr(rs.getDouble("cant_gr"));
                 d.setEsdolares(rs.getInt("esdolares"));
-                d.setTipo_cambio(rs.getDouble("tipo_cambio"));
+
+                d.setOnza(rs.getDouble("onza"));
+                d.setPorc(rs.getDouble("porc"));
+                d.setLey(rs.getDouble("ley"));
+                d.setSistema(rs.getDouble("sistema"));
+                d.setTcambio(rs.getDouble("tcambio"));
                 d.setPrecio_do(rs.getDouble("precio_do"));
                 d.setPrecio_so(rs.getDouble("precio_so"));
+
                 d.setTotal_do(rs.getDouble("total_do"));
                 d.setTotal_so(rs.getDouble("total_so"));
                 d.setSaldo_do_porpagar(rs.getDouble("saldo_do_porpagar"));
                 d.setSaldo_so_porpagar(rs.getDouble("saldo_so_porpagar"));
                 d.setUser(rs.getInt("user"));
                 d.setActivo(rs.getInt("activo"));
-                d.setDate_created(rs.getDate("date_created"));
-                d.setLast_updated(rs.getDate("last_updated"));
                 ls.add(d);
             }
         } catch (SQLException ex) {

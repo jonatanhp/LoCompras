@@ -14,6 +14,7 @@ import igu.util.alerts.ErrorAlert;
 public class Validate {
 
     public static boolean isPin = false;
+    public static int userId = 0;
     
 
     public boolean comprobar() {

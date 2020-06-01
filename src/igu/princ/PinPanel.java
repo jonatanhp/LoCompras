@@ -5,6 +5,12 @@
  */
 package igu.princ;
 
+import data.UserData;
+import entites.User;
+import igu.compras.ComprasPanel;
+import igu.util.alerts.ErrorAlert;
+import javax.swing.JFrame;
+
 /**
  *
  * @author Asullom
@@ -16,6 +22,7 @@ public class PinPanel extends javax.swing.JPanel {
      */
     public PinPanel() {
         initComponents();
+        pin.requestFocus();
     }
 
     /**
@@ -28,15 +35,29 @@ public class PinPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        aSIconButton1 = new igu.util.buttons.ASIconButton();
+        loginButton = new igu.util.buttons.ASIconButton();
+        jLabel1 = new javax.swing.JLabel();
+        pin = new javax.swing.JTextField();
+        pin_validate = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        aSIconButton1.setText("PIN");
-        aSIconButton1.setColorHover(new java.awt.Color(0, 102, 102));
-        aSIconButton1.addActionListener(new java.awt.event.ActionListener() {
+        loginButton.setText("VALIDAR PIN");
+        loginButton.setColorHover(new java.awt.Color(0, 102, 102));
+        loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                aSIconButton1ActionPerformed(evt);
+                loginButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("INGRESE PIN: ");
+
+        pin.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        pin.setNextFocusableComponent(loginButton);
+        pin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pinActionPerformed(evt);
             }
         });
 
@@ -45,16 +66,26 @@ public class PinPanel extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addComponent(aSIconButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addGap(90, 90, 90)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pin_validate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pin)
+                    .addComponent(jLabel1)
+                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(aSIconButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addGap(31, 31, 31)
+                .addComponent(pin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pin_validate, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(loginButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -76,13 +107,53 @@ public class PinPanel extends javax.swing.JPanel {
         Validate.isPin = true;
     }//GEN-LAST:event_materialButton1ActionPerformed
 
-    private void aSIconButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aSIconButton1ActionPerformed
-        Validate.isPin = true;
-    }//GEN-LAST:event_aSIconButton1ActionPerformed
+    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        pin_validate.setText("");
+        User d = UserData.getByPin(pin.getText());
+        if (d.getId() > 0) {
+            Validate.userId = d.getId();
+            Validate.isPin = true;
+            pin_validate.setText("PIN CORRECTO");
+            new CambiaPanel(MainFrame.pnlPrincipal, new ComprasPanel());
+
+        } else {
+            pin_validate.setText("INCORRECTO");
+            Validate.isPin = false;
+            ErrorAlert er = new ErrorAlert(new JFrame(), true);
+            er.titulo.setText("OOPS...");
+            er.msj.setText("PIN ERRADO");
+            er.msj1.setText("VUELVA A INTENTAR");
+            er.setVisible(true);
+        }
+    }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void pinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinActionPerformed
+        // TODO add your handling code here:
+        pin_validate.setText("");
+        User d = UserData.getByPin(pin.getText());
+        if (d.getId() > 0) {
+            Validate.userId = d.getId();
+            Validate.isPin = true;
+            pin_validate.setText("PIN CORRECTO");
+            new CambiaPanel(MainFrame.pnlPrincipal, new ComprasPanel());
+
+        } else {
+            pin_validate.setText("INCORRECTO");
+            Validate.isPin = false;
+            ErrorAlert er = new ErrorAlert(new JFrame(), true);
+            er.titulo.setText("OOPS...");
+            er.msj.setText("PIN ERRADO");
+            er.msj1.setText("VUELVA A INTENTAR");
+            er.setVisible(true);
+        }
+    }//GEN-LAST:event_pinActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private igu.util.buttons.ASIconButton aSIconButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private igu.util.buttons.ASIconButton loginButton;
+    private javax.swing.JTextField pin;
+    private javax.swing.JLabel pin_validate;
     // End of variables declaration//GEN-END:variables
 }
