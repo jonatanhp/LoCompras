@@ -9,6 +9,8 @@ package entites;
  *
  * @author Asullom
  */
+
+//pruebas ya completadas y con el merge de testf
 public class User {
 
     private int id;
