@@ -24,12 +24,46 @@ import org.sqlite.SQLiteConfig;
  * @author Asullom
  */
 public class CajaAperCierreData {
+
     static Connection cn = Conn.connectSQLite();
     static PreparedStatement ps;
     static Date dt = new Date();
     static SimpleDateFormat sdf = new SimpleDateFormat(SQLiteConfig.DEFAULT_DATE_STRING_FORMAT);
 
     String currentTime = sdf.format(dt);
+
+    public static CajaAperCierre getByFechaAndEsaper(Date date, int esaper) {
+        CajaAperCierre d = new CajaAperCierre();
+        String sql = "SELECT * FROM caja_aper_cierre WHERE strftime('%Y-%m-%d', fecha)= strftime('%Y-%m-%d', '" + sdf.format(date) + "') and esaper = '" + esaper + "'";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                d.setId(rs.getInt("id"));
+                String fecha = rs.getString("fecha");
+                System.out.println("getById.fecha:" + fecha);
+                try {
+                    Date datex = sdf.parse(fecha);
+                    System.out.println("getById.datex:" + datex);
+                    d.setFecha(date);
+                    d.setDate_created(sdf.parse(rs.getString("date_created")));
+                    d.setLast_updated(sdf.parse(rs.getString("last_updated")));
+                } catch (Exception e) {
+                }
+
+                d.setEsaper(rs.getInt("esaper"));
+                d.setSaldo_do(rs.getDouble("saldo_do"));
+                d.setSaldo_so(rs.getDouble("saldo_so"));
+                d.setSaldo_do_bancos(rs.getDouble("saldo_do_bancos"));
+                d.setSaldo_so_bancos(rs.getDouble("saldo_so_bancos"));
+                d.setGramos(rs.getDouble("gramos"));
+                d.setUser(rs.getInt("user"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CajaAperCierreData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return d;
+    }
 
     public static CajaAperCierre getById(int id) {
         CajaAperCierre d = new CajaAperCierre();
@@ -163,7 +197,7 @@ public class CajaAperCierreData {
                     d.setLast_updated(sdf.parse(rs.getString("last_updated")));
                 } catch (Exception e) {
                 }
-                 d.setEsaper(rs.getInt("esaper"));
+                d.setEsaper(rs.getInt("esaper"));
                 d.setSaldo_do(rs.getDouble("saldo_do"));
                 d.setSaldo_so(rs.getDouble("saldo_so"));
                 d.setSaldo_do_bancos(rs.getDouble("saldo_do_bancos"));

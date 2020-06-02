@@ -13,6 +13,7 @@ import java.io.IOException;
 import igu.util.tables.ExportarExcel;
 import entites.Proveedor;
 import entites.views.ProveSaldo;
+import igu.princ.Validate;
 import igu.util.alerts.ConfirmDialog;
 import igu.util.alerts.ErrorAlert;
 import igu.util.alerts.SuccessAlert;
@@ -712,7 +713,7 @@ public class AdelantosPanel extends javax.swing.JPanel {
             boolean continuar = false;
             System.out.println("id: " + id.getText());
             ProveMov s = new ProveMov();
-
+            s.setUser(Validate.userId);
             s.setProve_id(Integer.parseInt(prove_id.getText()));
             s.setProve_nom(nombres.getText());
             s.setGlosa(glosa.getText());

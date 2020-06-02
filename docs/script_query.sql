@@ -16,3 +16,13 @@ FROM compra as c
 	inner join prove_mov as pm on pm.prove_id = p.id
 --WHERE p.id =3
 GROUP BY p.id, p.nombres
+
+
+SELECT 
+	strftime('%Y-%m-%d', fecha)  as fecha 
+	
+	FROM caja_aper_cierre
+	WHERE strftime('%Y-%m-%d', fecha) = "2020-06-01"
+	
+select fecha from compra 
+where strftime('%d/%m/%Y', fecha) between "31/05/2020" and "31/05/2020";

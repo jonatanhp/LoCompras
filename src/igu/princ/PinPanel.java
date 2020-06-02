@@ -104,7 +104,6 @@ public class PinPanel extends javax.swing.JPanel {
 
     private void materialButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materialButton1ActionPerformed
         // TODO add your handling code here:
-        Validate.isPin = true;
     }//GEN-LAST:event_materialButton1ActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed

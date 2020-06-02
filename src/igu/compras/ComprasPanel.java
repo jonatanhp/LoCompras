@@ -15,6 +15,7 @@ import java.io.IOException;
 import igu.util.tables.ExportarExcel;
 import entites.Proveedor;
 import entites.views.ProveSaldo;
+import igu.princ.Validate;
 import igu.util.alerts.ConfirmDialog;
 import igu.util.alerts.ErrorAlert;
 import igu.util.alerts.SuccessAlert;
@@ -922,10 +923,10 @@ public class ComprasPanel extends javax.swing.JPanel {
             boolean continuar = false;
             System.out.println("id: " + id.getText());
             Compra s = new Compra();
-
+            s.setUser(Validate.userId);
             s.setProve_id(Integer.parseInt(prove_id.getText()));
             s.setProve_nom(nombres.getText());
-            s.setCant_gr(Double.parseDouble(cant_gr.getText()));
+            s.setCant_gr(Double.parseDouble(cant_gr.getText().replaceAll(",", "")));
 
             Date date = new Date();
             String test = this.fecha.getText(); //"02/03/2020";
@@ -1042,7 +1043,7 @@ public class ComprasPanel extends javax.swing.JPanel {
             cant_gr.requestFocus();
         } else {
             try {
-                double totalx = Math.round(Double.parseDouble(precio_do.getText()) * Double.parseDouble(cant_gr.getText()) * 100.0) / 100.0;
+                double totalx = Math.round(Double.parseDouble(precio_do.getText()) * Double.parseDouble(cant_gr.getText().replaceAll(",", "")) * 100.0) / 100.0;
                 total.setText(new DecimalFormat(Config.DEFAULT_DECIMAL_STRING_FORMAT).format(totalx));
             } catch (NumberFormatException nfe) {
                 System.err.println("" + nfe);
@@ -1064,7 +1065,7 @@ public class ComprasPanel extends javax.swing.JPanel {
             cant_gr.requestFocus();
         } else {
             try {
-                double totalx = Math.round(Double.parseDouble(precio_so.getText()) * Double.parseDouble(cant_gr.getText()) * 100.0) / 100.0;
+                double totalx = Math.round(Double.parseDouble(precio_so.getText()) * Double.parseDouble(cant_gr.getText().replaceAll(",", "")) * 100.0) / 100.0;
                 total.setText(new DecimalFormat(Config.DEFAULT_DECIMAL_STRING_FORMAT).format(totalx));
             } catch (NumberFormatException nfe) {
                 System.err.println("" + nfe);
@@ -1131,11 +1132,11 @@ public class ComprasPanel extends javax.swing.JPanel {
                     try {
                         if (pagar_soles.isSelected()) {
                             precio.setText(precio_so.getText());
-                            double totalx = Math.round(Double.parseDouble(precio_so.getText()) * Double.parseDouble(cant_gr.getText()) * 100.0) / 100.0;
+                            double totalx = Math.round(Double.parseDouble(precio_so.getText()) * Double.parseDouble(cant_gr.getText().replaceAll(",", "")) * 100.0) / 100.0;
                             total.setText(new DecimalFormat(Config.DEFAULT_DECIMAL_STRING_FORMAT).format(totalx));
                         } else {
                             precio.setText(precio_do.getText());
-                            double totalx = Math.round(Double.parseDouble(precio_do.getText()) * Double.parseDouble(cant_gr.getText()) * 100.0) / 100.0;
+                            double totalx = Math.round(Double.parseDouble(precio_do.getText()) * Double.parseDouble(cant_gr.getText().replaceAll(",", "")) * 100.0) / 100.0;
                             total.setText(new DecimalFormat(Config.DEFAULT_DECIMAL_STRING_FORMAT).format(totalx));
                             pagar_dolares.setSelected(true);
                         }
@@ -1174,11 +1175,11 @@ public class ComprasPanel extends javax.swing.JPanel {
             try {
                 if (pagar_soles.isSelected()) {
                     precio.setText(precio_so.getText());
-                    double totalx = Math.round(Double.parseDouble(precio_so.getText()) * Double.parseDouble(cant_gr.getText()) * 100.0) / 100.0;
+                    double totalx = Math.round(Double.parseDouble(precio_so.getText()) * Double.parseDouble(cant_gr.getText().replaceAll(",", "")) * 100.0) / 100.0;
                     total.setText(new DecimalFormat(Config.DEFAULT_DECIMAL_STRING_FORMAT).format(totalx));
                 } else {
                     precio.setText(precio_do.getText());
-                    double totalx = Math.round(Double.parseDouble(precio_do.getText()) * Double.parseDouble(cant_gr.getText()) * 100.0) / 100.0;
+                    double totalx = Math.round(Double.parseDouble(precio_do.getText()) * Double.parseDouble(cant_gr.getText().replaceAll(",", "")) * 100.0) / 100.0;
                     total.setText(new DecimalFormat(Config.DEFAULT_DECIMAL_STRING_FORMAT).format(totalx));
                     pagar_dolares.setSelected(true);
                 }
