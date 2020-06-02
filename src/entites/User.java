@@ -9,6 +9,8 @@ package entites;
  *
  * @author Asullom
  */
+
+// rama principal ing
 public class User {
 
     private int id;
