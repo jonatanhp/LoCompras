@@ -9,6 +9,8 @@ package entites;
  *
  * @author Asullom
  */
+
+//rama fork del remoto fork
 public class User {
 
     private int id;
