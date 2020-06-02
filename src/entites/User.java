@@ -9,6 +9,8 @@ package entites;
  *
  * @author Asullom
  */
+
+//aquí es donde haré mis pruebas
 public class User {
 
     private int id;
