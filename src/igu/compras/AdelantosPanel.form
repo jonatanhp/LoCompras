@@ -213,7 +213,7 @@
                           <Font name="Tahoma" size="16" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                          <Table columnCount="7" rowCount="4">
+                          <Table columnCount="7" rowCount="10">
                             <Column editable="false" title="N&#xba;" type="java.lang.Object"/>
                             <Column editable="false" title="ID" type="java.lang.Object"/>
                             <Column editable="false" title="NOMBRES" type="java.lang.Object"/>
@@ -698,7 +698,7 @@
                         </Property>
                         <Property name="rows" type="int" value="5"/>
                         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
-                          <Color id="Text Cursor"/>
+                          <Color id="Cursor Por defecto"/>
                         </Property>
                       </Properties>
                     </Component>

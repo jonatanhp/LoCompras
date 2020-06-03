@@ -134,23 +134,27 @@ public class AdelantosPanel extends javax.swing.JPanel {
         int cont = 0;
         for (ProveMov d : lis) {
             datos[0] = ++cont + "";
-            datos[1] = d.getId() + "";
+            datos[1] = d.getId()+ "";
             datos[2] = d.getProve_nom();
             datos[3] = d.getGlosa() + "";
             datos[4] = iguSDF.format(d.getFecha());
+            int cantrow=lis.size();
+            System.out.println(cantrow);
             modelo.addRow(datos);
         }
         tabla.getColumnModel().getColumn(0).setPreferredWidth(80);
         tabla.getColumnModel().getColumn(1).setPreferredWidth(80);
         tabla.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tabla.getColumnModel().getColumn(3).setPreferredWidth(200);
-        tabla.getColumnModel().getColumn(4).setPreferredWidth(200);
+        tabla.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tabla.getColumnModel().getColumn(4).setPreferredWidth(100);
+        
     }
-
+ 
     private void limpiarCampos() {
         nombres.requestFocus();
         nombres.setText("");
         monto.setText("");
+        glosa.setText("");
         paintTable("");
 
     }
@@ -191,7 +195,7 @@ public class AdelantosPanel extends javax.swing.JPanel {
         pagar_soles = new javax.swing.JRadioButton();
         prove_id = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        myJList = new javax.swing.JList<>();
+        myJList = new javax.swing.JList<String>();
         monto_validate = new javax.swing.JLabel();
         monto = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -274,6 +278,12 @@ public class AdelantosPanel extends javax.swing.JPanel {
         tabla.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -468,7 +478,7 @@ public class AdelantosPanel extends javax.swing.JPanel {
         glosa.setColumns(20);
         glosa.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         glosa.setRows(5);
-        glosa.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        glosa.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane3.setViewportView(glosa);
 
         saldo_do.setEditable(false);

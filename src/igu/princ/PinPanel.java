@@ -112,6 +112,7 @@ public class PinPanel extends javax.swing.JPanel {
         if (d.getId() > 0) {
             Validate.userId = d.getId();
             Validate.isPin = true;
+            
             pin_validate.setText("PIN CORRECTO");
             new CambiaPanel(MainFrame.pnlPrincipal, new ComprasPanel());
 

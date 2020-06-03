@@ -13,7 +13,7 @@ import igu.util.alerts.ErrorAlert;
  */
 public class Validate {
 
-    public static boolean isPin = false;
+    public static boolean isPin = true;
     public static int userId = 0;
     
 

@@ -204,10 +204,10 @@ public class CompraData {
                 d.setId(rs.getInt("id"));
                 //d.setFecha(rs.getDate("fecha"));
                 String fecha = rs.getString("fecha");
-                System.out.println("list.fecha:" + fecha);
+                //System.out.println("list.fecha:" + fecha);
                 try {
                     Date date = sdf.parse(fecha);
-                    System.out.println("list.date:" + date);
+                    //System.out.println("list.date:" + date);
                     d.setFecha(date);
                     d.setDate_created(sdf.parse(rs.getString("date_created")));
                     d.setLast_updated(sdf.parse(rs.getString("last_updated")));

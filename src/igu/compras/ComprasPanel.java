@@ -227,7 +227,7 @@ public class ComprasPanel extends javax.swing.JPanel {
         pagar_soles = new javax.swing.JRadioButton();
         prove_id = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        myJList = new javax.swing.JList<>();
+        myJList = new javax.swing.JList<String>();
         jLabel9 = new javax.swing.JLabel();
         precio = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -468,6 +468,17 @@ public class ComprasPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null}
             },
             new String [] {
@@ -496,9 +507,9 @@ public class ComprasPanel extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+            .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
 
@@ -801,7 +812,7 @@ public class ComprasPanel extends javax.swing.JPanel {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -930,7 +941,7 @@ public class ComprasPanel extends javax.swing.JPanel {
 
             Date date = new Date();
             String test = this.fecha.getText(); //"02/03/2020";
-            System.out.println("panel.fecha: " + test);
+           // System.out.println("panel.fecha: " + test);
             iguSDF.setLenient(false);
             try {
                 date = iguSDF.parse(test);
